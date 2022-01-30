@@ -8,12 +8,12 @@ const create = (req, res, next) => {
         if(err) {
             return res.status(400).json({error: errorHandler.getErrorMessage(err)})
         }
-        user.hashed_password = "test"
-        user.salt = "test",
-        user.name = "test",
-        user.email = "test",
+        // user.hashed_password = "test"
+        // user.salt = "test",
+        // user.name = "test",
+        // user.email = "test",
         res.status(200).json({message: 'Successfuly created a new user.'})
-        console.log(result)
+
     })
 }
 const list = (req, res) => {
