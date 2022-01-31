@@ -2,7 +2,7 @@ import express from 'express'
 import authCtrl from '../controllers/auth.controller'
 
 const router = express.Router()
-router.route('auth/singin').post(authCtrl.singin)
-router.route('auth/singout').post(authCtrl.singout)
+router.route('/auth/signin').post(authCtrl.signin)
+router.route('/auth/signout').post(authCtrl.signout)
 
 export default router;

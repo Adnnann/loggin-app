@@ -8,6 +8,7 @@ const UserSchema = new mongoose.Schema({
         required: 'Name is required'
     },
     email: {
+        
         type: String,
         trim: true,
         unique: 'Email already exists!',
@@ -24,8 +25,6 @@ const UserSchema = new mongoose.Schema({
         required: 'Password is required'
     },
     salt: String,
-    
-
 })
 
 UserSchema
@@ -50,7 +49,6 @@ UserSchema.methods = {
             .update(password)
             .digest('hex')
         } catch(err){
-            console.log(err)
             return ''
         }
     },

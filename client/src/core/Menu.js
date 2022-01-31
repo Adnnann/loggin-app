@@ -27,7 +27,7 @@ const Menu = ({history}) => (
                 <Button style={isActive(history,"/users")}>Users</Button>
             </Link>
             {
-                !auth.isAuthenitcated() && (<span>
+                !auth.isAuthenticated() && (<span>
                     <Link to='/signup'>
                         <Button style={isActive(history, '/signup')}>Sign up</Button>
                     </Link>
@@ -37,11 +37,11 @@ const Menu = ({history}) => (
                 </span>)
             }
             {
-                auth.isAuthenitcated() && (
+                auth.isAuthenticated() && (
                     <span>
-                        <Link to={"/user/" + auth.isAuthenitcated().user._id}>
+                        <Link to={"/user/" + auth.isAuthenticated().user._id}>
                             <Button style={isActive(history, '/user/'+
-                            auth.isAuthenitcated().user._id)}>My Profile</Button>
+                            auth.isAuthenticated().user._id)}>My Profile</Button>
                         </Link>
                         <Button color="inherit" onClick={()=>{
                             auth.clearToken(()=>history.push('/'))

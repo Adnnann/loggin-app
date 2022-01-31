@@ -34,7 +34,7 @@ const Profile = ({match}) =>{
     const classes = useStyles()
     const [user, setUser] = useState({})
     const [redirectToSingin, setRedirectToSignin] = useState(false)
-    const jwt = auth.isAuthenitcated()
+    const jwt = auth.isAuthenticated()
 
     useEffect(()=>{
       const abortController = new AbortController()
@@ -44,7 +44,9 @@ const Profile = ({match}) =>{
             if(data && data.error) {setRedirectToSignin(true)}
             else {setUser(data)}
         })
+        
         return function cleanup(){abortController.abort()}
+        
     },[match.params.userId])
 
     if(redirectToSingin) return <Redirect to='/signin' />
@@ -52,23 +54,36 @@ const Profile = ({match}) =>{
     return(
         <Paper className={classes.root} elevation={4}>
             <Typography varinat="h6" className={classes.title}>
-                All Users
+                Profile
             </Typography>
             <List dense>
-                <ListItem button>
+                <ListItem>
                     <ListItemAvatar>
                         <Avatar><Person /></Avatar>
                     </ListItemAvatar>
                     <ListItemText primary={user.name} secondary={user.email} />
-                    { auth.isAuthenitcated().user && auth.isAuthenitcated().user._id
+                    { auth.isAuthenticated().user 
+                    && auth.isAuthenticated().user._id  == user._id
                     && (
+                        <>
+                        <ListItem>
                     <ListItemSecondaryAction>
-                        <Link to={"/users/edit/" + user._id}>
+                        <Link to={"/user/edit/" + user._id}>
                             <IconButton aria-label='Edit' color="primary">
                                 <Edit />
                             </IconButton>
                         </Link>
-                    </ListItemSecondaryAction>)
+                    </ListItemSecondaryAction>
+                    </ListItem>
+                    <ListItem>
+                    <ListItemSecondaryAction>
+             
+                    <IconButton aria-label='Delete' color="primary">
+                        <DeleteUser userId={user._id} />
+                    </IconButton>
+                    </ListItemSecondaryAction>
+                    </ListItem>
+                    </>)
                     }
                 </ListItem>    
                 <Divider />

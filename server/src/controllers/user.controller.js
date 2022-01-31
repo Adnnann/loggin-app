@@ -3,18 +3,15 @@ import _ from 'lodash'
 import errorHandler from '../helpers/dbErrorHandler'
 
 const create = (req, res, next) => {
-    const user = new User(req.body);
-    user.save((err, result) => {
-        if(err) {
-            return res.status(400).json({error: errorHandler.getErrorMessage(err)})
-        }
-        // user.hashed_password = "test"
-        // user.salt = "test",
-        // user.name = "test",
-        // user.email = "test",
-        res.status(200).json({message: 'Successfuly created a new user.'})
-
-    })
+    const user = new User(req.body)
+        user.save((err, result) => {
+            if(err) {
+                console.log("From here", err)
+                return res.status(400).json({error: errorHandler.getErrorMessage(err)})
+            }
+            res.status(200).json({message: 'Successfuly created a new user.'})
+        })
+    
 }
 const list = (req, res) => {
     User.find((err, users) => {

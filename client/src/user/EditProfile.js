@@ -1,4 +1,4 @@
-import React, {useState} from "react"
+import React, {useState, useEffect} from "react"
 import Card from '@material-ui/core/Card'
 import CardActions from "@material-ui/core/CardActions"
 import CardContent from "@material-ui/core/CardContent"
@@ -36,7 +36,7 @@ const useStyles = makeStyles(theme=>({
         marginBottom: theme.spacing(2)
     }
 }))
-const EditProfile = () =>{
+const EditProfile = ({match}) =>{
     const classes = useStyles()
     const [values, setValues] = useState({
         name:'',
@@ -47,7 +47,7 @@ const EditProfile = () =>{
         redirectToProfile: false
     })
 
-    const jwt = auth.isAuthenitcated()
+    const jwt = auth.isAuthenticated()
 
     useEffect(()=>{
         const abortController = new AbortController()
@@ -97,7 +97,7 @@ const EditProfile = () =>{
             value={values.email} onChange={handleChange('email')} margin="normal" />
             <br />
 
-            <TextField id="password" type='password' label="Passwrod" className={classes.textField}
+            <TextField id="password" type='password' label="Password" className={classes.textField}
             value={values.password} onChange={handleChange('password')} margin="normal" />
             <br />
         {

@@ -14,7 +14,7 @@ import {Redirect} from 'react-router-dom'
 const DeleteUser = props =>{
     const [open, setOpen] = useState(false)
     const [redirect, setRedirect] = useState(false)
-    const jwt = auth.isAuthenitcated()
+    const jwt = auth.isAuthenticated()
     const clickButton = () => setOpen(true)
     const handleRequestClose = () => setOpen(false)
 

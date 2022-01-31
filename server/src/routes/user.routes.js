@@ -9,11 +9,9 @@ router.route('/api/users')
 .post(userCtrl.create)
 
 router.route('/api/users/:userId')
-.get(authCtrl.requireSingin, userCtrl.read)
-.put(authCtrl.requireSingin, authCtrl.hasAuthorization, userCtrl.update)
-.delete(authCtrl.requireSingin, authCtrl.hasAuthorization,  userCtrl.remove)
+.get(authCtrl.requireSignin, userCtrl.read)
+.put(authCtrl.requireSignin, authCtrl.hasAuthorization, userCtrl.update)
+.delete(authCtrl.requireSignin, authCtrl.hasAuthorization,  userCtrl.remove)
 
-
-router.route('/api/users').post(userCtrl.create)
 router.param('userId', userCtrl.userByID)
 export default router;

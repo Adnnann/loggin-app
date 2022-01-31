@@ -42,13 +42,13 @@ const Users = () =>{
 
     return(
       <Paper className={classes.root} elevation={4}>
-          <Typography varinat="h6" className={classes.title}>
+          <Typography variant="h6" className={classes.title}>
               All Users
           </Typography>
           <List dense>
               {
                   users.map((item, i) => {
-                      return (<Link to={"/users/"+item._id} key={i}>
+                      return (<Link to={"/user/"+item._id} key={i}>
                               <ListItem button>
                                   <ListItemAvatar>
                                       <Avatar><Person /></Avatar>

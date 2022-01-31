@@ -23,10 +23,11 @@ const read = (params, token) => {
     return fetch(`${baseUrl}/api/users/${params.userId}`, {
         method: 'GET',
         headers:{
+            Authorization: `Bearer ${token.t}`,
             'Accept':'application/json',
             'Content-Type':'application/json',
-            'Authorization': 'Bearer' + token.t,
-        },
+            
+        }
     })
     .then(response => response.json())
     .catch(err=>console.log(err))
@@ -36,9 +37,9 @@ const update = (params, token, user) => {
     return fetch(`${baseUrl}/api/users/${params.userId}`, {
         method: 'PUT',
         headers:{
+            Authorization: `Bearer ${token.t}`,
             'Accept':'application/json',
             'Content-Type':'application/json',
-            'Authorization': 'Bearer' + token,
         },
     })
     .then(response => response.json(user))
@@ -49,9 +50,9 @@ const remove = (params, token) => {
     return fetch(`${baseUrl}/api/users/${params.userId}`, {
         method: 'DELETE',
         headers:{
+            Authorization: `Bearer ${token.t}`,
             'Accept':'application/json',
-            'Content-Type':'application/json',
-            'Authorization': 'Bearer' + token,
+            'Content-Type':'application/json'
         },
     })
     .then(response => response.json())

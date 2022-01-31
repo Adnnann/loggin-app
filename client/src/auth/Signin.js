@@ -52,13 +52,15 @@ const Signin = props => {
             password: values.password || undefined
         }
 
-        singin(user).then((data)=>{
+        signin(user).then((data)=>{
             if(data.error){
                 setValues({...values, error: data.error})
             }else{
+                auth.authenticate(data, () => {
                 setValues({...values, error:'', redirectToReferrer:true})
-            }
-        })
+            })
+        }
+      })
     }
 
     const handleChange = name => event => {
@@ -75,11 +77,7 @@ const Signin = props => {
     return(
         <Card className={classes.card}>
         <CardContent>
-            <Typography variant='h6' className={classes.tittle}>Sign Up</Typography>
-
-            <TextField id="name" label="Name" className={classes.textField}
-            value={values.name} onChange={handleChange('name')} margin="normal" />
-            <br />
+            <Typography variant='h6' className={classes.tittle}>Sign In</Typography>
 
             <TextField id="email" type='email' label="Email" className={classes.textField}
             value={values.email} onChange={handleChange('email')} margin="normal" />

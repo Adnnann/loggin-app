@@ -6,7 +6,7 @@ const authenticate = (token,callback)=>{
         callback()
 }
 
-const isAuthenitcated = () => {
+const isAuthenticated = () => {
     if(typeof window == 'undefined') return false;
     if(!sessionStorage.getItem('token')) return false
     return JSON.parse(sessionStorage.getItem('token'))
@@ -17,4 +17,4 @@ const clearToken = (callback) => {
     callback()
 }
 
-export default {authenticate, isAuthenitcated, clearToken}
+export default {authenticate, isAuthenticated, clearToken}

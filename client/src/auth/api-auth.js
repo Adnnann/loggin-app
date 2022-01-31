@@ -1,20 +1,22 @@
-import fetchData from '../config/config'
+import baseUrl from '../config/config'
 
-const signin = () => {
-    fetchData.get(`${baseUrl}/auth/signin`,{
+const signin = user => {
+    return fetch(`${baseUrl}/auth/signin`,{
+        method:'POST',
         headers:{
-            'Accept':'application/json',
+            'Accept':'appliation/json',
             'Content-Type':'application/json'
-        }
+        },
+        body: JSON.stringify(user),
     })
-    .then(response=>response.data)
+    .then(response=>response.json())
     .catch(err=>console.log(err))
 }
 
-const singout = () => {
+const signout = () => {
     return fetch(`${baseUrl}/auth/signout`, {method:'GET'})
     .then(response=>response.json())
     .catch(err=>console.log(err))
 }
 
-export default {signin, singout}
+export {signin, signout}

@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken'
 import expressJwt from 'express-jwt'
 import config from '../config/config'
 
-const singin = (req, res) => {
+const signin = (req, res) => {
     User.findOne({'email': req.body.email},(err, user) => {
         if(err || !user){
             return res.status(401).json({error: 'User not found!'})
@@ -12,6 +12,7 @@ const singin = (req, res) => {
             return res.status(400).json({error:'Email and password do not match!'})
         }
         const token = jwt.sign({_id: user._id}, config.secret)
+        console.log(token)
         res.cookie('token', token, {expire: new Date()+999})
         res.status(200).json({
             token,
@@ -20,12 +21,12 @@ const singin = (req, res) => {
     })
 }
 
-const singout = (req, res) => {
+const signout = (req, res) => {
     res.clearCookie('token')
     res.status(200).json({message: 'User signed out.'})
 }
 
-const requireSingin = expressJwt({
+const requireSignin = expressJwt({
     secret: config.secret,
     algorithms: ['HS256'],
     userProperty: 'auth'
@@ -36,4 +37,4 @@ const hasAuthorization = (req, res, next) => {
     next()
 }
 
-export default { singin, singout, requireSingin, hasAuthorization}
+export default { signin, signout, requireSignin, hasAuthorization}
