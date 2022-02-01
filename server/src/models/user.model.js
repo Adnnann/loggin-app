@@ -1,5 +1,6 @@
 import mongoose from 'mongoose'
 import crypto from 'crypto'
+const uniqueValidator = require('mongoose-unique-validator');
 
 const UserSchema = new mongoose.Schema({
     name: {
@@ -8,7 +9,6 @@ const UserSchema = new mongoose.Schema({
         required: 'Name is required'
     },
     email: {
-        
         type: String,
         trim: true,
         unique: 'Email already exists!',
@@ -26,6 +26,12 @@ const UserSchema = new mongoose.Schema({
     },
     salt: String,
 })
+
+UserSchema.path("email").validate(async function (email) {
+    const user = await this.constructor.findOne({ email });    
+if (user) {    if (this.id === user.id) {    return true;    }    return false;    }    
+return true;   }, "Email already exists!");
+//UserSchema.plugin(uniqueValidator)
 
 UserSchema
 .virtual('password')
@@ -57,14 +63,17 @@ UserSchema.methods = {
     }
 }
 
-UserSchema.path('hashed_password')
-.validate(function(v){
-    if(this._password && this._password.lenght < 6){
+
+UserSchema.path('hashed_password').validate(function(v){
+    if(this._password && this._password.length < 6){
         this.invalidate('password', 'Password must be at least 6 characters')
     }
     if(this.isNew && !this._password){
         this.invalidate('password', 'Password is required')
     }
 }, null)
+
+
+
 
 export default mongoose.model('User', UserSchema);

@@ -41,6 +41,7 @@ const update = (params, token, user) => {
             'Accept':'application/json',
             'Content-Type':'application/json',
         },
+        body: JSON.stringify(user)
     })
     .then(response => response.json(user))
     .catch(err=>console.log(err))

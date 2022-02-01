@@ -59,8 +59,9 @@ const Signup = () =>{
     const clickSubmit = () => {
         const user = {
             name: values.name || undefined,
-            password: values.password || undefined,
-            email: values.email || undefined
+            email: values.email || undefined,
+            password: values.password || undefined
+            
         }
         create(user).then((data)=>{
             if(data.error){
